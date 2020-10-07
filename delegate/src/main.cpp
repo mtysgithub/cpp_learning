@@ -28,6 +28,7 @@ int main()
 	func_pointer (global_f_1);
 	func_signature(0, 0);	//通过out link来匹配执行体
 
+	using namespace DelegateTest;
 	DelegateHandle instance;
 	DelegateHandle *instance_this = &instance;
 	DelegateHandle::HandlerPointer member_func = &(DelegateHandle::handler);	//普通成员函数直接取代码段上的地址绑定到变量上
@@ -35,6 +36,7 @@ int main()
 	(instance_this->*member_func)(0, 0);
 
 	//模板技巧构造委托
+	using namespace Base;
 	EventCenterType EventCenter(instance_this, &DelegateHandle::handler);
 	EventCenter(0, 0);
 
