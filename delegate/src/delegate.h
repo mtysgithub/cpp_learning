@@ -2,6 +2,9 @@
 #include <vector>
 using namespace std;
 
+//The Function Pointer Tutorials
+//http://www.newty.de/fpt/index.html
+
 template<typename TReturn, typename ...TArgs>
 class Delegate
 {
@@ -21,9 +24,9 @@ public:
 	{
 	public:
 		typedef TClass class_type;
-		typedef return_type(class_type::*funtion_type)(TArgs...);		//这一步,按照外层 Delegate 特化的规格，我们约束出一个符合规格的成员函数指针类型 funtion_type
+		typedef return_type(class_type::*function_type)(TArgs...);		//这一步,按照外层 Delegate 特化的规格，我们约束出一个符合规格的成员函数指针类型 function_type
 
-		explicit MemberFunction(class_type *_this, funtion_type func)
+		explicit MemberFunction(class_type *_this, function_type func)
 		{
 			m_instance = _this;
 			m_memFunction = func;
@@ -36,16 +39,16 @@ public:
 
 	private:
 		class_type *m_instance;
-		funtion_type m_memFunction;
+		function_type m_memFunction;
 	};
 	
 public:
 	Delegate() = delete;
 
-	//warning C4346: “Delegate<TReturn,TArgs...>::MemberFunction<TClass>::funtion_type”: 依赖名称不是类型
+	//warning C4346: “Delegate<TReturn,TArgs...>::MemberFunction<TClass>::function_type”: 依赖名称不是类型
 	//用“typename”为前缀来表示类型
 	template<typename TClass>
-	explicit Delegate(TClass *_this, typename MemberFunction<TClass>::funtion_type func)		//第二段形参上必须用 typename 导出一个等价的符号给编译器修饰为形参的数据类型
+	explicit Delegate(TClass *_this, typename MemberFunction<TClass>::function_type func)		//第二段形参上必须用 typename 导出一个等价的符号给编译器修饰为形参的数据类型
 	{
 		m_func = new MemberFunction<TClass>(_this, func);
 	}
@@ -61,7 +64,7 @@ public:
 	}
 
 private:
-	//由于我们不希望在Delegate的定义上暴露TClass，而只在构造函数局部上插入一个带TClass的funtion_type, 所以必须要有一个基类型脱去这个符号
+	//由于我们不希望在Delegate的定义上暴露TClass，而只在构造函数局部上插入一个带TClass的function_type, 所以必须要有一个基类型脱去这个符号
 	//MemberFunction<TClass> m_func;		
 
 	IBaseFunction *m_func;

@@ -43,5 +43,11 @@ int main()
 	EventCenterType EventCenter2(instanceEx_this, &DelegateHandle::handler);
 	EventCenter2(1, 1);
 
+	//引用资料, 关于如何封装存储一个与物理形式无关的抽象函数指针（静态方法指针，普通C函数指针，成员函数指针，lambda ……牛逼），std库拥有一个最佳实践方案
+	//std::function
+	//https://en.cppreference.com/w/cpp/utility/functional/function
+	//std::bind
+	//https://en.cppreference.com/w/cpp/utility/functional/bind
+
 	return 0;
 }
