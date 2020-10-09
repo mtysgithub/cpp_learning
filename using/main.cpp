@@ -65,7 +65,7 @@ struct A
 	struct AInternal;
 	typedef B<T> U;
 };
-//B<int> b; //error
+//B<int> b; //error, B<int> uses its own type via A<int>::U
 
 //-----------------------------------------------------------------------------------
 
